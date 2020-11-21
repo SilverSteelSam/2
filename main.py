@@ -8,7 +8,7 @@ import sys
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        #self.flag = False
+        self.flag = False
         uic.loadUi('UI.ui', self)
         self.DrawButton.clicked.connect(self.draw)
 
@@ -24,10 +24,8 @@ class Window(QMainWindow):
             qp.end()
             
     def draw(self):
-        pass
-        #sel.flag = True
-        #self.repaint()
-        #print(1)
+        sel.flag = True
+        self.repaint()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
