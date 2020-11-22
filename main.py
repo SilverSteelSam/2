@@ -12,20 +12,24 @@ class Window(QMainWindow):
         uic.loadUi('UI.ui', self)
         self.DrawButton.clicked.connect(self.draw)
 
-    def paintEvent(self):
+    def paintEvent(self, event):
         if self.flag:
             qp = QPainter()
             qp.begin(self)
-            qp.setBrush(QColor(0, 255, 255))
-            r = random.randint(15, 150)
-            x = random.randint(15, 380 - r / 2)
-            y = random.randint(15, 300 - r / 2)
-            qp.drawEllipse(100, 100, 50, 50)
+            self.drawcircle(qp)
             qp.end()
+            self.flag = False
             
     def draw(self):
-        sel.flag = True
+        self.flag = True
         self.repaint()
+
+    def drawcircle(self, qp):
+        qp.setBrush(QColor('yellow'))
+        r = random.randint(15, 150)
+        x = random.randint(15, 380 - r // 2)
+        y = random.randint(15, 300 - r // 2)
+        qp.drawEllipse(x, y, r, r)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
