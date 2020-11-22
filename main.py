@@ -27,18 +27,29 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.flag = False
+        self.DrawButton.clicked.connect(self.draw)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.DrawButton.setText(_translate("MainWindow", "Draw"))
 
+    def paintEvent(self, event):
+        if self.flag:
+            qp = QPainter()
+            qp.begin(self)
+            self.drawcircle(qp)
+            qp.end()
+            self.flag = False
+        
 
-class Window(QMainWindow):
+
+class Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.flag = False
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.DrawButton.clicked.connect(self.draw)
 
     def paintEvent(self, event):
